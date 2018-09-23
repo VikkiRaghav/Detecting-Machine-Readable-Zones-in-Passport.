@@ -22,6 +22,10 @@ gradX = (255 * ((gradX - minVal) / (maxVal - minVal))).astype("uint8")
 gradX = cv2.morphologyEx(gradX, cv2.MORPH_CLOSE, rectKernel)
 thresh = cv2.threshold(gradX, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
                        
+thresh = cv2.morphologyEx(thresh, cv2.MORPH_CLOSE, sqKernel)
+thresh = cv2.erode(thresh, None, iterations=4)
+
+
 
 
 plt.imshow(thresh, cmap=plt.cm.gray)

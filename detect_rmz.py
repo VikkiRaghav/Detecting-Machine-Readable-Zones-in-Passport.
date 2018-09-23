@@ -12,11 +12,17 @@ image = imutils.resize(image,height=600)
 gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
 gray = cv2.GaussianBlur(gray, (3,3), 0)
-blackchar = cv2.morphologyEx(gray, cv2.MORPH_BLACKHAT, rectKernel)
+blackchat = cv2.morphologyEx(gray, cv2.MORPH_BLACKHAT, rectKernel)
+
+gradX = cv2.Sobel(blackhar, ddepth=cv2.CV_32F, dx=1, dy=0, ksize=-1)
+gradX = np.absolute(gradX)
+(minVal, maxVal) = (np.min(gradX), np.max(gradX))
+gradX = (255 * ((gradX - minVal) / (maxVal - minVal))).astype("uint8")
 
 
 
-plt.imshow(blackchar, cmap=plt.cm.gray)
+
+plt.imshow(blackchat, cmap=plt.cm.gray)
 plt.axis('off')
 plt.show()
 	
